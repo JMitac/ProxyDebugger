@@ -1,4 +1,7 @@
 import hoxy from 'hoxy';
+import uniqid from 'uniqid';
+
+import { ipcRenderer as ipc } from 'electron';
 
 const PROXY_PORT = 8888;
 
@@ -29,11 +32,14 @@ class ProxyManager {
     console.log(response._data.statusCode);
     console.log(response.string);
     console.log(request.url);
+    console.log('id ' + request.id);
+    ipc.send('new-request', { enabled: 'gg' });
   }
 
   onRequestListener(request, response) {
     console.log('------- REQUEST  ');
     request.started = new Date().getTime();
+    request.id = uniqid();
     console.log(request.started);
     console.log(response._data.statusCode);
     console.log(request.string);

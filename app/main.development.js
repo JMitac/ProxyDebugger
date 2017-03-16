@@ -1,5 +1,9 @@
-import { app, BrowserWindow, Menu, shell } from 'electron';
+import { app, BrowserWindow, Menu, shell, ipcMain as ipc } from 'electron';
 import createProxy from './services/Proxy';
+
+ipc.on('new-request', function(event) {
+  console.log('dddd');
+});
 
 let menu;
 let template;
